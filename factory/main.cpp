@@ -12,10 +12,13 @@ int main()
         cerr<<"Socket is not available for platform"<<endl;
         return -1;
     }
-    s->open();
-    s->write("hello");
-    const char *data=s->read();
-    (void)data;
+    if(s)
+    {
+        s->open();
+        s->write("hello");
+        const char *data=s->read();
+        (void)data;
+    }
     return 0;
 }
 
