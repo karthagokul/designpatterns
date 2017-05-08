@@ -1,18 +1,38 @@
-#include "singleton.h"
+#include <iostream>
+#include <mutex>
+using namespace std;
 
-/*
- Often, a system only needs to create one instance of a class, and that instance will be accessed throughout the program. Examples would include objects needed for logging, communication,
- database access, etc.or simply Ensure a class has only one instance, and provide a global point of access to it.
-*/
+class Singleton
+{
+private:
+    static Singleton *mSingleton;
+    int mValue=0;
+    Singleton() =default;
+    mutex mMutex;
+
+public:
+    static Singleton* getInstance()
+    {
+        // lock via mutex for thread safety
+        if(mSingleton==nullptr)
+            mSingleton=new Singleton();
+        //leave the lock
+        return mSingleton;
+    }
+    void increment()
+    {
+        mValue++;
+        cout<<mValue<<endl;
+    }
+};
+
+Singleton *Singleton::mSingleton=nullptr;
+
 int main()
 {
-    //Error because Consturctor is private
-    //Singleton *obj=new Singleton();
-
-    Singleton *a=Singleton::instance();
-    Singleton *b=Singleton::instance();
-    a->function();
-    b->function();
-    a->function();
+    auto *instanceOne=Singleton::getInstance();
+    instanceOne->increment();
+    auto *instanceTwo=Singleton::getInstance();
+    instanceTwo->increment();
     return 0;
 }

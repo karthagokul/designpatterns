@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <map>
 
 using namespace std;
 
@@ -14,7 +14,7 @@ class USBDevice: public Peripheral
     protected:
     void onBoot() final
     {
-        cout<<"Booting USB Device"<<endl;
+        cout<<"Booting USB Device"
     }
 };
 
@@ -23,20 +23,19 @@ class SerialDevice:public Peripheral
     protected:
     void onBoot() final
     {
-        cout<<"Booting Serial Device"<<endl;
+
+
     }
 };
 
 class CPU
 {
-    std::vector <Peripheral* > mObservers;
+    std::map<Peripheral* > mObservers;
 public:
-
     void addPeripheral(Peripheral *p)
     {
         mObservers.push_back(p);
     }
-
     void boot()
     {
         for(auto *obs:mObservers)obs->onBoot();
@@ -46,8 +45,8 @@ public:
 
 int main()
 {
-    Peripheral *audioUSB=new USBDevice();
-    Peripheral *monitor=new SerialDevice();
+    Peripheral *audioUSB=new Peripheral();
+    Peripheral *monitor=new Peripheral();
     CPU myCpu;
     myCpu.addPeripheral(audioUSB);
     myCpu.addPeripheral(monitor);

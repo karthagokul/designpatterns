@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1494255945 source:d:\workspace\c++_workspace\designpatterns\observer\main.cpp
+	<iostream>
+	<vector>
+
