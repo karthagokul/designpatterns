@@ -1,57 +1,134 @@
 #include <iostream>
-#include "filter.h"
-#include "imageeditor.h"
 
 using namespace std;
 
-class SepaFilter:public Filter
+class PronounciationStrategy
 {
 public:
-    void applyFilter()
+    virtual void applyVocalSettings()=0;
+};
+
+class IndianMale: public PronounciationStrategy
+{
+public:
+    virtual void applyVocalSettings()
     {
-        cout<<"Sepia Filter Applied\n";
+        cout<<"Indian Male Pro: Applying "<<endl;
     }
 };
 
-class BWFilter:public Filter
+class BritishFemale: public PronounciationStrategy
 {
 public:
-    void applyFilter()
+    virtual void applyVocalSettings()
     {
-        cout<<"BWFilter Applied\n";
+        cout<<"British FeMale Pro: Applying "<<endl;
     }
 };
 
-/*
- * Watch https://www.youtube.com/watch?v=cHg5bWW4nUI  for the explanation
-*/
+class Language
+{
+private:
+    int numberOfAlphabets;
+    bool isWirttenFromLeftToRight;
+    PronounciationStrategy *mSpeakingStrategy;
+public:
+    Language(PronounciationStrategy *aStrategy):mSpeakingStrategy(aStrategy){}
+    void speak(const char *data)
+    {
+        mSpeakingStrategy->applyVocalSettings();
+        cout<<"Speaking " <<data<<endl;
+    }
+};
+
 int main()
 {
-    ImageEditor editor;
-    Filter *filter=0;
-    cout<<"Enter 1 for Sepia filter or 2 for Black and White Filter\n";
-    int option;
-    bool validselection=true;
-    cin>>option;
-    if(option==1)
-    {
-        filter=new SepaFilter;
-    }
-    else if(option==2)
-    {
-        filter=new BWFilter;
-    }
-    else
-    {
-        validselection=false;
-    }
-    cout<<"\n";
-    if(validselection)
-    {
-        editor.setFilter(filter);
-        delete filter;
-        filter=0;
-    }
+    IndianMale *vinod=new IndianMale();
+    Language *hindi=new Language(vinod);
+    hindi->speak("Namsthe");
+
+    BritishFemale *daisy=new BritishFemale();
+    Language *ukEnglish=new Language(daisy);
+    ukEnglish->speak("Good Morning");
+
     return 0;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+class TTSGender
+{
+public:
+    virtual void applyVoiceSettings()=0;
+};
+
+class IndianMan:public TTSGender
+{
+public:
+    virtual void applyVoiceSettings()
+    {
+        cout<<"Applying Voice Settings for Indian Man"<<endl;
+    }
+};
+
+class DutchWomen:public TTSGender
+{
+public:
+    virtual void applyVoiceSettings()
+    {
+        cout<<"Applying Voice Settings for Dutch Women"<<endl;
+    }
+};
+
+class TTSCharacter
+{
+private:
+    TTSGender *mGender;
+public:
+    TTSCharacter(TTSGender *aGender) :mGender(aGender)
+    {
+    }
+
+    void speak(const char *data)
+    {
+        mGender->applyVoiceSettings();
+        cout<<"Speaking "<<data<<endl;
+    }
+};
+
+
+int main()
+{
+    TTSGender *indianMan=new IndianMan();
+    TTSCharacter *vinod=new TTSCharacter(indianMan);
+
+    TTSGender *dutchWomen=new DutchWomen();
+    TTSCharacter *daisy=new TTSCharacter(dutchWomen);
+
+    vinod->speak("Hello World");
+    daisy->speak("Goedemorgen Heer !");
+
+    return 0;
+}
+*/
