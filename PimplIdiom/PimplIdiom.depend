@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1505153362 source:d:\workspace\designpatterns\pimplidiom\main.cpp
+	<iostream>
+	"RoutingEngine.h"
+
+1505153459 d:\workspace\designpatterns\pimplidiom\include\routingengine.h
+	<string>
+	<iostream>
+
+1505153365 source:d:\workspace\designpatterns\pimplidiom\src\routingengine.cpp
+	"RoutingEngine.h"
+
