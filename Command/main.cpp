@@ -1,10 +1,10 @@
 #include <iostream>
-
-using namespace std;
+#include "imageeditor.h"
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    ImageEditor editor;
+    editor.start();
     return 0;
 }
 

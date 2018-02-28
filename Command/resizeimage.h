@@ -1,10 +1,17 @@
 #ifndef RESIZEIMAGE_H
 #define RESIZEIMAGE_H
 
-class ResizeImage
+#include "command.h"
+
+class ResizeImage:public Command
 {
 public:
-    ResizeImage();
+    void execute()
+    {
+        mImage.mImageData="***Resized Image***";
+        mImage.mHeight=mImage.mHeight*2;
+        mImage.mWidth=mImage.mWidth*2;
+    }
 };
 
 #endif // RESIZEIMAGE_H

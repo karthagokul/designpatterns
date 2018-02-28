@@ -1,10 +1,15 @@
 #ifndef SEPIAPLUGIN_H
 #define SEPIAPLUGIN_H
 
-class SepiaPlugin
+#include "command.h"
+
+class SepiaPlugin:public Command
 {
 public:
-    SepiaPlugin();
+    void execute()
+    {
+        mImage.mImageData="***Sepia Plugin***";
+    }
 };
 
 #endif // SEPIAPLUGIN_H

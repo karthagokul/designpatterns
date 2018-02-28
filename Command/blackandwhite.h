@@ -1,10 +1,15 @@
 #ifndef BLACKANDWHITE_H
 #define BLACKANDWHITE_H
 
-class BlackAndWhite
+#include "command.h"
+
+class BlackAndWhite:public Command
 {
 public:
-    BlackAndWhite();
+    void execute()
+    {
+        mImage.mImageData="***B&W Image***";
+    }
 };
 
 #endif // BLACKANDWHITE_H
