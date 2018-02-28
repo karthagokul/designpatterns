@@ -1,11 +1,12 @@
 #include <iostream>
+#include "vlcplayer.h"
 
 /*
  * Problem Statement
  * Context
  * ------------
- *       Recently you have invented a Audio Fileformat named .aud and you have the data encoding algorithm. You are planning to
- * integrate .aud file format with popular audio players like VLC
+ *       Recently you have invented a Audio Fileformat named .mp3 and you have the data encoding algorithm. You are planning to
+ * integrate .mp3 file format with popular audio players like VLC
  * Problem Statement
  * ------------------
  *        1. Your encoding library can be added as a Plugin to all these players.
@@ -14,63 +15,21 @@
  *
  **/
 
-/*
- * Aud file Encoding Algorithm
- *
- *  This class is written in such a way that it should support multiple players . Not specific to VLC Player
-
-*/
-
-class AudEncoder{
-public:
-    char* encodeAudFile(std::string &filename)
-    {
-        std::cout<<"Encoding "<<filename<<std::endl;
-        return 0;
-    }
-};
-
-/*
- * The VLC player provides a Generic Encoding Interface for Integrating thrid party solutions.
- *
-*/
-class VlcEncodingInterface
-{
-public:
-    virtual void* encode(char *fileName)=0;
-};
-
-/*
- * Main Class which acts as an adapter to connect the AudEncoder and the VLC Encioding Interface
-*/
-class AudEncodingAdapterForVlc:public AudEncoder,public VlcEncodingInterface
-{
-public:
-    void* encode(char *fileName)
-    {
-        std::string fName=std::string(fileName);
-        void *data=encodeAudFile(fName);
-        return data;
-    }
-
-};
-
-/*Dummy Player class for Demo */
-class VLCPlayer
-{
-public:
-    void play()
-    {
-        //See here VLC is not using the AudEncoder directly, but it creates an Object of its encoding interface runtime
-        VlcEncodingInterface *audInterface= new AudEncodingAdapterForVlc();
-        audInterface->encode("mymusic.aud");
-        delete audInterface;
-    }
-};
 
 int main(int argc, char **argv)
 {
+    (void)argc;
+    (void)argv;
+
     VLCPlayer p;
-    p.play();
+    const char *mp3fileName="mymusic.mp3";
+    p.play(mp3fileName);
+
+    const char *oggfileName="mymusic.ogg";
+    p.play(oggfileName);
+
+    const char *anotherfileName="mymusic.voc";
+    p.play(anotherfileName);
+
     return 0;
 }
